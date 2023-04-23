@@ -147,7 +147,7 @@ def main():
     Main function 
     """
     # Invoking Readstream to read data
-    df = readdatastream(source_path)
+    df = readdatastream()
     print("reading data as stream finished")
 
     #Invoking Writestream to perform all transformations
