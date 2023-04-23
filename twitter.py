@@ -71,8 +71,8 @@ def twitter_data_analyis():
 
     #Invoking function to perform trend analysis on the data 
     wordcloud = twitter_data_trend_analysis(df_twitter_pandas)
-    print("Twitter data trend analysis report: Analysis report has been saved as PNG : trend_analysis_twitter_data.png")
-    wordcloud.to_file("trend_analysis_twitter_data.png")
+    print("Twitter data trend analysis report: Analysis report has been saved as PNG : /var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
+    wordcloud.to_file("/var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     plt.axis('off')
     plt.imshow(wordcloud)
     
