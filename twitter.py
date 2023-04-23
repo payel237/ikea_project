@@ -13,5 +13,4 @@ def wordcloudbot():
     df_twitter = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/")
     df_twitter.show()
 
-if _name_ == "_main_":
-    wordcloudbot()
+wordcloudbot()
