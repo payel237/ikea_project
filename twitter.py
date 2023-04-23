@@ -92,13 +92,11 @@ def readdatastream():
     
     query = read_df \
         .writeStream \
-        .start() \
         .option("checkpointLocation", checkpoint) \
         .trigger(once=True) \
-        .foreachBatch(batch_function) 
+        .foreachBatch(batch_function) \
+        .start().awaitTermination()
 
-#     query.awaitTermination()
-#     query.stop()
     print("Finished Analysis of data")
     return query.lastProgress
 
