@@ -90,9 +90,10 @@ def readdatastream():
 
     batch_function = twitter_data_analysis(read_df)
     query = read_df \
-        .writeStream.option("checkpointLocation", checkpoint) \
-        .trigger(availableNow=True) \
-        .foreachBatch(lambda df, epochId: batch_function(read_df, epochId)) \
+        .writeStream \
+        .option("checkpointLocation", checkpoint) \
+        .trigger(once=True) \
+        .foreachBatch(batch_function) \
         .start()
 
     query.awaitTermination()
