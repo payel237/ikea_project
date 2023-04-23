@@ -88,7 +88,7 @@ def readdatastream():
                .load()
                )
 
-    batch_function = twitter_data_analysis()
+    batch_function = twitter_data_analysis(read_df)
     query = read_df \
         .writeStream.option("checkpointLocation", checkpoint) \
         .trigger(availableNow=True) \
