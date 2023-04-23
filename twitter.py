@@ -77,19 +77,13 @@ def readdatastream():
     read_df = (spark
                .readStream
                .format('json')
-               .option('ignoreChanges', 'true')
-               .option('ignoreMissingFiles', 'true')
-               .option('ignoreDeletes', 'true')
-               .option('ignoreCorruptFiles', 'true')
-               .option('ignoreChanges', 'true')
                .option('maxFilesPerTrigger', 100)
                .option('Path', "/var/jenkins_home/workspace/ikea_assignment/")
-               .option("failOnDataLoss", "false")
                .schema(df_schema)
                .load()
                )
     
-    print(read_df.show(5))
+    read_df.show(5)
     
     query = read_df \
         .writeStream \
