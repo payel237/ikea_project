@@ -1,0 +1,6 @@
+[packages]
+tweepy="*"
+pandas="*"
+wordcloud="*"
+matplotlib="*"
+pyspark="*"
