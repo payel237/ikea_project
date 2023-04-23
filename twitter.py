@@ -71,6 +71,7 @@ def readdatastream():
     """
     checkpoint = "/var/jenkins_home/workspace/checkpoint/"
     spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
+    df_schema = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/").schema
 
     read_df = (spark
                .readStream
@@ -83,6 +84,7 @@ def readdatastream():
                .option('maxFilesPerTrigger', 100)
                .option('Path', "/var/jenkins_home/workspace/ikea_assignment/")
                .option("failOnDataLoss", "false")
+               .schema(df_schema)
                .load()
                )
 
