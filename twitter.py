@@ -2,8 +2,8 @@ from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 from pyspark.sql import SparkSession
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np 
+import pandas as pd 
 import matplotlib.pyplot as plt
 import seaborn as sns
 from wordcloud import WordCloud, STOPWORDS
@@ -11,12 +11,14 @@ import emoji
 import nltk
 import re 
 from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer 
+from nltk.corpus import stopwords
 from collections import Counter
 from nltk.tag import pos_tag
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
-import warnings
-warnings.filterwarnings("ignore")
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 def get_emojis(sentence):
 
@@ -47,17 +49,67 @@ def twitter_data_trend_analysis(df_twitter_pandas):
 
     return wordcloud
 
-def twitter_data_analyis():
+def clean_words(new_tokens):
+
+    """
+    Function to clean twitter data
+    """
+    new_tokens = [t.lower() for t in new_tokens]
+    new_tokens =[t for t in new_tokens if t not in stopwords.words('english')]
+    new_tokens = [t for t in new_tokens if t.isalpha()]
+    words_avoided = ["https","rt","also"]
+    new_tokens = [t for t in new_tokens if t not in words_avoided]
+    lemmatizer = WordNetLemmatizer()
+    new_tokens =[lemmatizer.lemmatize(t) for t in new_tokens]
+
+    return new_tokens
+
+def readdatastream():
+
+    """
+    Function to read data as stream
+    """
+    checkpoint = "/var/jenkins_home/workspace/checkpoint/"
+    spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
+
+    read_df = (spark
+               .readStream
+               .format('json')
+               .option('ignoreChanges', 'true')
+               .option('ignoreMissingFiles', 'true')
+               .option('ignoreDeletes', 'true')
+               .option('ignoreCorruptFiles', 'true')
+               .option('ignoreChanges', 'true')
+               .option('maxFilesPerTrigger', 100)
+               .option('Path', "/var/jenkins_home/workspace/ikea_assignment/")
+               .option("failOnDataLoss", "false")
+               .load()
+               )
+
+    batch_function = twitter_data_analysis()
+    query = read_df \
+        .writeStream.option("checkpointLocation", checkpoint) \
+        .trigger(availableNow=True) \
+        .foreachBatch(lambda df, epochId: batch_function(read_df, epochId)) \
+        .start()
+
+    query.awaitTermination()
+    query.stop()
+    print("Finished Analysis of data")
+    return query.lastProgress
+
+
+def twitter_data_analysis(df_twitter):
 
     """
     Function to perform twitter data sentiment analysis 
     """
 
     #Reading Data & selecting relevant columns 
-    spark = SparkSession.builder.appName("Read JSON Data") .getOrCreate()
-    df_twitter = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/")
-    df_twitter = df_twitter.select("text")
+    # spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
+    # df_twitter = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/")
     df_twitter_pandas = df_twitter.toPandas()
+    df_twitter = df_twitter.select("text")
     df_twitter_pandas['text'] = df_twitter_pandas['text'].astype('str')
 
     #Invoking function to perform analysis on emoji 
@@ -69,12 +121,23 @@ def twitter_data_analyis():
     print(emoji_frame.head(10).sort_values(by='count',ascending=False))
     print("***********************************************************")
 
+    #Invoking function to perform analysis on data 
+    comments =" ".join(df_twitter_pandas['text'])
+    words = word_tokenize(comments)
+    lowered = clean_words(words)
+    bow = Counter(lowered)
+    data = pd.DataFrame(bow.items(),columns=['word','frequency']).sort_values(by='frequency',ascending=False)
+    data =data.head(20)
+    print("Twitter Data analysis")
+    print(data)
+    print("***********************************************************")
+
     #Invoking function to perform trend analysis on the data 
     wordcloud = twitter_data_trend_analysis(df_twitter_pandas)
     print("Twitter data trend analysis report: Analysis report has been saved as PNG : /var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     wordcloud.to_file("/var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     plt.axis('off')
-    plt.imshow(wordcloud,interpolation='bilinear')
-    
+    plt.imshow(wordcloud)
 
-twitter_data_analyis()
+#Invoking main function to perform reading & all analysis on twitter data 
+readdatastream()
