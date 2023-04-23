@@ -87,10 +87,8 @@ def readdatastream():
                .schema(df_schema)
                .load()
                )
-
-    batch_function = twitter_data_analysis(read_df)
     
-    read_df.show(5)
+    print(read_df.show(5))
     
     query = read_df \
         .writeStream \
@@ -103,7 +101,7 @@ def readdatastream():
     return query.lastProgress
 
 
-def twitter_data_analysis(df_twitter):
+def batch_function():
 
     """
     Function to perform twitter data sentiment analysis 
