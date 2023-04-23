@@ -96,8 +96,8 @@ def readdatastream():
         .foreachBatch(batch_function) \
         .start()
 
-    query.awaitTermination()
-    query.stop()
+#     query.awaitTermination()
+#     query.stop()
     print("Finished Analysis of data")
     return query.lastProgress
 
