@@ -72,6 +72,7 @@ def readdatastream():
     checkpoint = "/var/jenkins_home/workspace/checkpoint/"
     spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
     df_schema = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/").schema
+    print(df_schema)
 
     read_df = (spark
                .readStream
