@@ -85,12 +85,12 @@ def readdatastream():
     
     return read_df
     
-def writestream():
+def writestream(df):
     """
     Function to invoke all transformation and perform data analysis
     """
     checkpoint = "/var/jenkins_home/workspace/checkpoint/"
-    query = read_df \
+    query = df \
         .writeStream \
         .option("checkpointLocation", checkpoint) \
         .trigger(once=True) \
