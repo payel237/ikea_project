@@ -92,7 +92,7 @@ def readdatastream():
     
     query = read_df \
         .writeStream \
-        .start()
+        .start() \
         .option("checkpointLocation", checkpoint) \
         .trigger(once=True) \
         .foreachBatch(batch_function) 
