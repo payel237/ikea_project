@@ -12,6 +12,7 @@ def wordcloudbot():
     """
     df_twitter = spark.read.format("json").load("./data")
     print(df_twitter)
+    print("hi..")
 
 
 if _name_ == "_main_":
