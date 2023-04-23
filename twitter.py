@@ -74,7 +74,7 @@ def twitter_data_analyis():
     print("Twitter data trend analysis report: Analysis report has been saved as PNG : /var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     wordcloud.to_file("/var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     plt.axis('off')
-    plt.imshow(wordcloud)
+    plt.imshow(wordcloud,interpolation='bilinear')
     
 
 twitter_data_analyis()
