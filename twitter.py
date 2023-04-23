@@ -69,7 +69,7 @@ def readdatastream():
     """
     Function to read data as stream
     """
-    checkpoint = "/var/jenkins_home/workspace/checkpoint/"
+    
     spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
     df_schema = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/").schema
     print(df_schema)
@@ -83,8 +83,13 @@ def readdatastream():
                .load()
                )
     
-    read_df.show(5)
+    return read_df
     
+def writestream():
+    """
+    Function to invoke all transformation and perform data analysis
+    """
+    checkpoint = "/var/jenkins_home/workspace/checkpoint/"
     query = read_df \
         .writeStream \
         .option("checkpointLocation", checkpoint) \
@@ -92,6 +97,7 @@ def readdatastream():
         .foreachBatch(batch_function) \
         .start().awaitTermination()
 
+    query.stop()
     print("Finished Analysis of data")
     return query.lastProgress
 
@@ -136,5 +142,15 @@ def batch_function():
     plt.axis('off')
     plt.imshow(wordcloud)
 
-#Invoking main function to perform reading & all analysis on twitter data 
-readdatastream()
+def main():
+    """
+    Main function 
+    """
+    # Invoking Readstream to read data
+    df = readdatastream(source_path)
+    print("reading data as stream finished")
+
+    #Invoking Writestream to perform all transformations
+    q_lastprogress = writestream(df)
+
+ main()
