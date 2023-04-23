@@ -15,6 +15,8 @@ from collections import Counter
 from nltk.tag import pos_tag
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
+import warnings
+warnings.filterwarnings("ignore")
 
 def get_emojis(sentence):
 
