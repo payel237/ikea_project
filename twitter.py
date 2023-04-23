@@ -67,12 +67,12 @@ def twitter_data_analyis():
     print("Twitter Data Emoji analysis")
     plt.figure(figsize=(20,10))
     print(emoji_frame.head(10).sort_values(by='count',ascending=False))
-    print("/n")
+    print("***********************************************************")
 
     #Invoking function to perform trend analysis on the data 
     wordcloud = twitter_data_trend_analysis(df_twitter_pandas)
-    print("Twitter data trend analysis report: Analysis report has been saved at Img folder as PNG")
-    wordcloud.to_file("img/trend_analysis_twitter_data.png")
+    print("Twitter data trend analysis report: Analysis report has been saved as PNG : trend_analysis_twitter_data.png")
+    wordcloud.to_file("trend_analysis_twitter_data.png")
     plt.axis('off')
     plt.imshow(wordcloud)
     
