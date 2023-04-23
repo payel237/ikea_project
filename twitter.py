@@ -152,5 +152,5 @@ def main():
 
     #Invoking Writestream to perform all transformations
     q_lastprogress = writestream(df)
-
- main()
+    
+main()
