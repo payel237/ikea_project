@@ -6,6 +6,12 @@ from pyspark.sql.types import *
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 # from wordcloud import WordCloud, STOPWORDS
+from pyspark.sql import SparkSession
+
+# Create Spark session
+spark = SparkSession.builder \
+    .appName("Read JSON Data") \
+    .getOrCreate()
 
 def wordcloudbot():
     """
