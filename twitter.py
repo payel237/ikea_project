@@ -60,7 +60,7 @@ def clean_words(new_tokens):
     new_tokens = [t.lower() for t in new_tokens]
     new_tokens =[t for t in new_tokens if t not in stopwords.words('english')]
     new_tokens = [t for t in new_tokens if t.isalpha()]
-    words_avoided = ["https","rt","also"]
+    words_avoided = ["https","rt","also","none"]
     new_tokens = [t for t in new_tokens if t not in words_avoided]
     lemmatizer = WordNetLemmatizer()
     new_tokens =[lemmatizer.lemmatize(t) for t in new_tokens]
