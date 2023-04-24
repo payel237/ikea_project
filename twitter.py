@@ -102,13 +102,13 @@ def writestream(df):
     return query.lastProgress
 
 
-def batch_function(df):
+def batch_function():
 
     """
     Function to perform twitter data sentiment analysis 
     """
     df_twitter_pandas = df.toPandas()
-    df_twitter_pandas = df_twitter_pandas.select("text")
+    df_twitter_pandas = df_twitter_pandas["text"]
     df_twitter_pandas['text'] = df_twitter_pandas['text'].astype('str')
 
     #Invoking function to perform analysis on emoji 
