@@ -27,6 +27,8 @@ nltk: Provides natural language processing functions, such as tokenization, lemm
 Functions:
 
 The code defines several functions for performing different tasks:
+
+```
 get_emojis(sentence): Extracts emojis from a given sentence and calculates their occurrence.
 
 twitter_data_trend_analysis(df_twitter_pandas): Performs trend analysis on Twitter data by creating a word cloud visualization of the most frequently occurring words in the data.
@@ -41,3 +43,5 @@ batch_function(df, epochId): Performs sentiment analysis on Twitter data by extr
 
 main(): The main function that orchestrates the execution of other functions.
 
+
+```
