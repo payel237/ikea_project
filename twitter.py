@@ -92,8 +92,6 @@ def writestream(df):
     Function to invoke all transformation and perform data analysis
     """
     checkpoint = "/var/jenkins_home/workspace/checkpoint/"
-    sc = SparkContext("local","Streaming App")
-    scc = StreamingContext(sc,1)
     
     query = df \
         .writeStream \
@@ -102,7 +100,6 @@ def writestream(df):
         .foreachBatch(batch_function) \
         .start().awaitTermination()
     
-    scc.stop()
     query.stop()
     return query.lastProgress
     print("Finished Analysis of data")
