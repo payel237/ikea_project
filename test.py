@@ -17,7 +17,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
 
     def test_get_emojis(self):
         """
-        Testing get_emoji function 
+        #Testing get_emoji function 
         """
         
         sentence = ["I love ❤️ coding in Python 🐍!"]
@@ -27,7 +27,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
 
     def test_twitter_data_trend_analysis(self):
         """
-        Test twitter_data_trend_analysis function
+        #Test twitter_data_trend_analysis function
         """
         
         df_twitter_pandas = DataFrame(
@@ -38,7 +38,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
 
     def test_clean_words(self):
         """
-        Test clean_words function
+        #Test clean_words function
         """
         new_tokens = ["I", "love", "Python", "programming"]
         cleaned_tokens = twitter.clean_words(new_tokens)
@@ -47,14 +47,14 @@ class TestTwitterDataAnalysis(unittest.TestCase):
 
     def test_readdatastream(self):
         """
-        Testing readdatastream function
+        #Testing readdatastream function
         """
         read_df = twitter.readdatastream()
         self.assertIsInstance(read_df, DataFrame)
 
     def test_batch_function(self):
         """
-        Test batch_function function of SparkStreaming 
+        #Test batch_function function of SparkStreaming 
         """
         df = DataFrame(
             [("I love coding ",)], ["code"]
@@ -63,7 +63,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
 
     def test_writestream(self):
         """
-        Test writestream function of SparkStreaming
+        #Test writestream function of SparkStreaming
         """
         df = DataFrame(
             [("I love cooking ",)], ["indian food"]
