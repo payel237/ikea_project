@@ -21,7 +21,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         """
         
         sentence = ["I love ❤️ coding in Python 🐍!"]
-        emojis = get_emojis(sentence)
+        emojis = twitter.get_emojis(sentence)
         expected_output = ['❤️', '🐍']
         self.assertEqual(emojis, expected_output)
 
