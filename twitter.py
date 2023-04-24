@@ -96,7 +96,10 @@ def writestream(df):
         .trigger(once=True) \
         .foreachBatch(batch_function) \
         .start().awaitTermination()
-
+    
+    query.stop()
+    print("Finished the Append/Merge Operation, Data Written into Delta Table.")
+    return query.lastProgress
     print("Finished Analysis of data")
 
 def batch_function(df, epocId):
