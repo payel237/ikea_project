@@ -2,6 +2,8 @@ from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 from pyspark.sql import SparkSession
+from pyspark import SparkContext
+from pyspark.streaming import StreamingContext
 import numpy as np 
 import pandas as pd 
 import matplotlib.pyplot as plt
@@ -90,6 +92,9 @@ def writestream(df):
     Function to invoke all transformation and perform data analysis
     """
     checkpoint = "/var/jenkins_home/workspace/checkpoint/"
+    sc = SparkContext("local","Streaming App")
+    scc = StreamingContext(sc,1)
+    
     query = df \
         .writeStream \
         .option("checkpointLocation", checkpoint) \
@@ -97,8 +102,8 @@ def writestream(df):
         .foreachBatch(batch_function) \
         .start().awaitTermination()
     
+    scc.stop()
     query.stop()
-    print("Finished the Append/Merge Operation, Data Written into Delta Table.")
     return query.lastProgress
     print("Finished Analysis of data")
 
