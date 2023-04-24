@@ -97,7 +97,6 @@ def writestream(df):
         .foreachBatch(batch_function) \
         .start().awaitTermination()
 
-    query.stop()
     print("Finished Analysis of data")
     return query.lastProgress
 
