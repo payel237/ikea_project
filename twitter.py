@@ -98,8 +98,6 @@ def writestream(df):
         .start().awaitTermination()
 
     print("Finished Analysis of data")
-    return query.lastProgress
-
 
 def batch_function(df, epocId):
 
