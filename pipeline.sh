@@ -1,4 +1,10 @@
 #!/bin/bash
+#pipeline to execute tasks
+#Step 1: execute unit test 
+#Step 2 : based on unit test outcome, actual kpi logic will be derived
+
+#Removing checkpoint dirctory to support streaming logic as new data is not ingested yet
+rm -rf /var/jenkins_home/workspace/checkpoint/
 
 # Run unit tests
 echo "Running unit tests..."
