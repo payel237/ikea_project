@@ -4,10 +4,32 @@
 Before proceeding with the setup, please ensure that Docker software is preinstalled on your system. You can refer to the official Docker installation guide for Mac [here](https://docs.docker.com/desktop/install/mac-install/) for installation instructions.
 
 ## Step 1: Start Docker Instance
-Start the Docker instance using the Docker image that has already been committed. Keep the process running and do not close the console. Use the following command:
+pull the public docker image using the below command
 
 ```
-docker run -p 8084:8080 -p 50004:50000 -v /var/jenkins_home --restart=on-failure ikea_project
+@Payel-Air ~ % docker run -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk11
+
+lts-jdk11: Pulling from jenkins/jenkins
+
+8022b074731d: Pull complete 
+
+b45b4f0ed0e2: Pull complete 
+
+c3046dd3ca81: Pull complete 
+
+02e31ab40a45: Pull complete 
+
+ea7acd286e3e: Pull complete 
+
+c71a21ea0759: Pull complete 
+
+2f8f809ea17a: Pull complete 
+
+e5687d0032b5: Pull complete 
+
+c9ab6b65d272: Pull complete 
+
+df7b970e61fe: Pull complete 
 ```
 
 ## Step 2: Login to Jenkins GUI
