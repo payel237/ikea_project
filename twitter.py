@@ -94,7 +94,7 @@ def writestream(df):
         .writeStream \
         .option("checkpointLocation", checkpoint) \
         .trigger(once=True) \
-        .foreachBatch(lambda df: batch_function(df)) \
+        .foreachBatch(batch_function) \
         .start().awaitTermination()
 
     query.stop()
