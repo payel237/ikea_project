@@ -94,7 +94,7 @@ def writestream(df):
         .writeStream \
         .option("checkpointLocation", checkpoint) \
         .trigger(once=True) \
-        .foreachBatch(batch_function) \
+        .foreachBatch(lambda df, epochId: batch_function(df, epochId)) \
         .start().awaitTermination()
 
     query.stop()
@@ -102,17 +102,13 @@ def writestream(df):
     return query.lastProgress
 
 
-def batch_function():
+def batch_function(df):
 
     """
     Function to perform twitter data sentiment analysis 
     """
-
-    #Reading Data & selecting relevant columns 
-    # spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
-    # df_twitter = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/")
-    df_twitter_pandas = df_twitter.toPandas()
-    df_twitter = df_twitter.select("text")
+    df_twitter_pandas = df.toPandas()
+    df_twitter_pandas = df_twitter_pandas.select("text")
     df_twitter_pandas['text'] = df_twitter_pandas['text'].astype('str')
 
     #Invoking function to perform analysis on emoji 
