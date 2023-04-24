@@ -2,10 +2,9 @@
 
 # Run unit tests
 echo "Running unit tests..."
-path = "/usr/lib/python3.9/"
-script_path = "/var/jenkins_home/workspace/ikea_assignment/"
+cd /usr/lib/python3.9/
 
-$path/python3 $script_path/test.py 
+python3 /var/jenkins_home/workspace/ikea_assignment/test.py 
 unit_test_exit_code=$?
 
 # Check if unit tests passed
@@ -14,7 +13,7 @@ if [ $unit_test_exit_code -eq 0 ]; then
   
   # Run code execution
   echo "Running code execution..."
-  $path/python3 $script_path/twitter.py unit_test_exit_code=$?
+  python3 /var/jenkins_home/workspace/ikea_assignment/twitter.py unit_test_exit_code=$?
   code_execution_exit_code=$?
   
   # Check if code execution completed successfully
