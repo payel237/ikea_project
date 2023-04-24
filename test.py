@@ -1,5 +1,5 @@
 import unittest
-import 
+import twitter
 from unittest.mock import MagicMock
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
@@ -40,7 +40,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         df_twitter_pandas = DataFrame(
             [("I love Python programming",), ("Python is awesome",)], ["text"]
         )
-        wordcloud = twitter_data_trend_analysis(df_twitter_pandas)
+        wordcloud = twitter.twitter_data_trend_analysis(df_twitter_pandas)
         self.assertIsInstance(wordcloud, WordCloud)
 
     def test_clean_words(self):
@@ -48,29 +48,34 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         Test clean_words function
         """
         new_tokens = ["I", "love", "Python", "programming"]
-        cleaned_tokens = clean_words(new_tokens)
+        cleaned_tokens = twitter.clean_words(new_tokens)
         expected_output = ['love', 'python', 'programming']
         self.assertEqual(cleaned_tokens, expected_output)
 
     def test_readdatastream(self):
-        # Test readdatastream function
+        """
+        Testing readdatastream function
+        """
         read_df = readdatastream()
         self.assertIsInstance(read_df, DataFrame)
 
     def test_batch_function(self):
-        # Test batch_function function
+        """
+        Test batch_function function of SparkStreaming 
+        """
         df = DataFrame(
-            [("I love Python programming",)], ["text"]
+            [("I love coding ",)], ["code"]
         )
         batch_function(df, 0)
-        # You can use assert methods to check the expected output from the function
 
     def test_writestream(self):
-        # Test writestream function
+        """
+        Test writestream function of SparkStreaming
+        """
         df = DataFrame(
-            [("I love Python programming",)], ["text"]
+            [("I love cooking ",)], ["indian food"]
         )
-        checkpoint = "/var/jenkins_home/workspace/checkpoint/"
+        checkpoint = "/var/jenkins_home/workspace/test_checkpoint/"
         query = writestream(df)
         self.assertIsInstance(query, MagicMock)
 
