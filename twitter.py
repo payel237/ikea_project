@@ -109,6 +109,8 @@ def batch_function(df, epocId):
     """
     df_twitter_pandas = df.toPandas()
     df_twitter_pandas = df_twitter_pandas["text"]
+    print(df_twitter_pandas.head(5))
+    print(df_twitter_pandas.columns)
     df_twitter_pandas['text'] = df_twitter_pandas['text'].astype('str')
 
     #Invoking function to perform analysis on emoji 
