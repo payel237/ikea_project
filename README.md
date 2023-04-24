@@ -1,5 +1,5 @@
 # Readme: Docker Setup for Jenkins
-According to the assignment, KPI's based on twitter data sentimenet analyis has been implemented using saprk streaming & python. To enable CI/CD of the code I have used public docker image of Jenkins. 
+The implementation of KPIs based on sentiment analysis of Twitter data using Spark Streaming and Python has been completed as per the assignment requirements. To enable continuous integration and continuous deployment (CI/CD) of the code, a public Docker image of Jenkins has been used.
 
 ## Prerequisites
 Before proceeding with the setup, please ensure that Docker software is preinstalled on your system. You can refer to the official Docker installation guide for Mac [here](https://docs.docker.com/desktop/install/mac-install/) for installation instructions.
