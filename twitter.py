@@ -100,8 +100,11 @@ def writestream(df):
         .foreachBatch(batch_function) \
         .start().awaitTermination()
     
-    query.stop()
-    return query.lastProgress
+    if query is not None:
+        query.stop()
+        return query.lastProgress
+    else:
+        pass
     print("Finished Analysis of data")
 
 def batch_function(df, epocId):
