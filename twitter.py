@@ -122,7 +122,7 @@ def batch_function(df, epocId):
     emojis_bow = get_emojis(df_twitter_pandas['text'])
     emoji_count= (Counter(emojis_bow).items())
     emoji_frame = pd.DataFrame(emoji_count,columns=['emoji','count'])
-    print("Twitter Data Emoji analysis")
+    print("KPI 1 : Twitter Data Emoji analysis")
     plt.figure(figsize=(20,10))
     print(emoji_frame.head(10).sort_values(by='count',ascending=False))
     print("***********************************************************")
@@ -134,13 +134,13 @@ def batch_function(df, epocId):
     bow = Counter(lowered)
     data = pd.DataFrame(bow.items(),columns=['word','frequency']).sort_values(by='frequency',ascending=False)
     data =data.head(20)
-    print("Twitter Data analysis")
+    print("KPI 2 : Twitter Data analysis")
     print(data)
     print("***********************************************************")
 
     #Invoking function to perform trend analysis on the data 
     wordcloud = twitter_data_trend_analysis(df_twitter_pandas)
-    print("Twitter data trend analysis report: Analysis report has been saved as PNG : /var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
+    print("KPI 3 : Twitter data trend analysis report: Analysis report has been saved as PNG : /var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     wordcloud.to_file("/var/jenkins_home/workspace/ikea_assignment/trend_analysis_twitter_data.png")
     plt.axis('off')
     plt.imshow(wordcloud)
@@ -149,11 +149,16 @@ def main():
     """
     Main function 
     """
-    # Invoking Readstream to read data
-    df = readdatastream()
-    print("reading data as stream finished")
+    try:
+        # Invoking Readstream to read data
+        df = readdatastream()
+        print("reading data as stream finished")
 
-    #Invoking Writestream to perform all transformations
-    q_lastprogress = writestream(df)
+        #Invoking Writestream to perform all transformations
+        q_lastprogress = writestream(df)
+        
+    except Exception as e:
+        print("Exception occured",e)
+        raise e
     
 main()
