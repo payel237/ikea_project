@@ -15,13 +15,6 @@ from nltk.tokenize import word_tokenize
 
 class TestTwitterDataAnalysis(unittest.TestCase):
 
-    def setUp(self):
-        """
-        Initialize SparkSession for testing
-        """
-        
-        self.spark = SparkSession.builder.appName("TestTwitterDataAnalysis").getOrCreate()
-
     def test_get_emojis(self):
         """
         Testing get_emoji function 
@@ -56,7 +49,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         """
         Testing readdatastream function
         """
-        read_df = readdatastream()
+        read_df = twitter.readdatastream()
         self.assertIsInstance(read_df, DataFrame)
 
     def test_batch_function(self):
@@ -66,7 +59,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         df = DataFrame(
             [("I love coding ",)], ["code"]
         )
-        batch_function(df, 0)
+        twitter.batch_function(df, 0)
 
     def test_writestream(self):
         """
@@ -76,7 +69,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
             [("I love cooking ",)], ["indian food"]
         )
         checkpoint = "/var/jenkins_home/workspace/test_checkpoint/"
-        query = writestream(df)
+        query = twitter.writestream(df)
         self.assertIsInstance(query, MagicMock)
 
 if __name__ == '__main__':
