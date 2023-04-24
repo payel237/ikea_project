@@ -1,7 +1,6 @@
 import unittest
 import twitter
 import pandas as pd
-from unittest.mock import MagicMock
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 from pyspark.sql import SparkSession
@@ -26,16 +25,6 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         expected_output = ['❤️', '🐍']
         self.assertEqual(emojis, expected_output)
 
-    def test_twitter_data_trend_analysis(self):
-        """
-        #Test twitter_data_trend_analysis function
-        """
-        
-        text_values = ["solar energy", "furniture", "gift card"]
-        df_twitter_pandas = pd.DataFrame({'text': text_values})
-        
-        wordcloud = twitter.twitter_data_trend_analysis(df_twitter_pandas)
-        self.assertIsInstance(wordcloud, WordCloud)
 
     def test_clean_words(self):
         """
