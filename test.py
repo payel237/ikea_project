@@ -1,5 +1,6 @@
 import unittest
 import twitter
+import pandas as pd
 from unittest.mock import MagicMock
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
@@ -30,9 +31,9 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         #Test twitter_data_trend_analysis function
         """
         
-        df_twitter_pandas = DataFrame(
-            [("I love Python programming",), ("Python is awesome",)], ["text"]
-        )
+        text_values = ["solar energy", "furniture", "gift card"]
+        df = pd.DataFrame({'text': text_values})
+        
         wordcloud = twitter.twitter_data_trend_analysis(df_twitter_pandas)
         self.assertIsInstance(wordcloud, WordCloud)
 
