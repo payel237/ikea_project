@@ -102,7 +102,7 @@ def writestream(df):
     return query.lastProgress
 
 
-def batch_function():
+def batch_function(df):
 
     """
     Function to perform twitter data sentiment analysis 
