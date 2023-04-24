@@ -1,4 +1,5 @@
 # Readme: Docker Setup for Jenkins
+According to the assignment, KPI's based on twitter data sentimenet analyis has been implemneted using saprk streaming & python. To enable CI/CD of the code I have used public docker image of Jenkins. 
 
 ## Prerequisites
 Before proceeding with the setup, please ensure that Docker software is preinstalled on your system. You can refer to the official Docker installation guide for Mac [here](https://docs.docker.com/desktop/install/mac-install/) for installation instructions.
@@ -13,23 +14,6 @@ lts-jdk11: Pulling from jenkins/jenkins
 
 8022b074731d: Pull complete 
 
-b45b4f0ed0e2: Pull complete 
-
-c3046dd3ca81: Pull complete 
-
-02e31ab40a45: Pull complete 
-
-ea7acd286e3e: Pull complete 
-
-c71a21ea0759: Pull complete 
-
-2f8f809ea17a: Pull complete 
-
-e5687d0032b5: Pull complete 
-
-c9ab6b65d272: Pull complete 
-
-df7b970e61fe: Pull complete 
 ```
 
 ## Step 2: Login to Jenkins GUI
@@ -39,10 +23,15 @@ Open your web browser and go to http://localhost:8084/. Provide the credentials 
 To check the already running Docker instance, use the following command:
 
 ```
-docker ps
+Payel@Payel-Air ~ % docker ps  
+
+CONTAINER ID   IMAGE                COMMAND                  CREATED             STATUS             PORTS                                              NAMES
+
+c6d2b3e7c224   ikea_project         "/usr/bin/tini -- /u…"   5 minutes ago       Up 5 minutes       0.0.0.0:8084->8080/tcp, 0.0.0.0:50004->50000/tcp   brave_johnson
+
 ```
 
-Extract the Docker ID from the output, as it will be required to login to the Docker server.
+Extract the Container ID from the output, as it will be required to login to the Docker server.
 
 ## Step 4: Copy Jenkins Home Tar File
 Copy the tar file of the Jenkins home to the Docker container. The tar file should have already been provided to you via email. Use the following command:
@@ -50,8 +39,6 @@ Copy the tar file of the Jenkins home to the Docker container. The tar file shou
 ```
 docker cp ~/Desktop/jenkins/job_bundle.tar <docker_id>:/var/jenkins_home
 ```
-
-Replace `<docker_id>` with the Docker ID obtained in Step 3.
 
 ## Step 5: Login to Docker Instance
 Login to the Docker instance using the following command:
