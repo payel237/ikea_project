@@ -75,7 +75,6 @@ def readdatastream():
     
     spark = SparkSession.builder.appName("Read JSON Data").getOrCreate()
     df_schema = spark.read.format("json").load("/var/jenkins_home/workspace/ikea_assignment/").schema
-    print(df_schema)
 
     read_df = (spark
                .readStream
