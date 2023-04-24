@@ -107,7 +107,6 @@ def writestream(df):
         pass
     
     time.sleep(5)
-    print("Finished Analysis of data")
 
 def batch_function(df, epocId):
 
@@ -152,7 +151,6 @@ def main():
     try:
         # Invoking Readstream to read data
         df = readdatastream()
-        print("reading data as stream finished")
 
         #Invoking Writestream to perform all transformations
         q_lastprogress = writestream(df)
