@@ -32,7 +32,7 @@ class TestTwitterDataAnalysis(unittest.TestCase):
         """
         
         text_values = ["solar energy", "furniture", "gift card"]
-        df = pd.DataFrame({'text': text_values})
+        df_twitter_pandas = pd.DataFrame({'text': text_values})
         
         wordcloud = twitter.twitter_data_trend_analysis(df_twitter_pandas)
         self.assertIsInstance(wordcloud, WordCloud)
