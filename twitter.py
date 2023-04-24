@@ -106,7 +106,7 @@ def writestream(df):
     else:
         pass
     
-    time.sleep(30)
+    time.sleep(5)
     print("Finished Analysis of data")
 
 def batch_function(df, epocId):
